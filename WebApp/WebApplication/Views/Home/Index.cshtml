@@ -1,0 +1,42 @@
+﻿@model WebApplication.Models.HomeViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container" style="margin-top: 34px;">
+    <div class="row" style="padding-bottom: 24px;">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
+        {
+            <div class="form-group">
+                <input class="form-control" type="text" name="search" placeholder="Search" />
+            </div>
+            <div class="custom-file">
+                <input type="file" name="file" class="custom-file-input">
+                <label class="custom-file-label" for="file">Choose file</label>
+            </div>
+            <div style="margin-top: 14px;">
+                <input class="btn btn-primary" type="submit" value="Upload selected file and search" />
+            </div>
+        }
+    </div>
+    <div class="row">
+        @{
+            if (Model.Sentences.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var sentence in Model.Sentences)
+                    {
+                        <li class="list-group-item">
+                            <div>
+                                <strong>@sentence.Word</strong> occured <strong>@sentence.Count</strong> times in sentence
+                                <p>
+                                    @sentence.Text
+                                </p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+        }
+    </div>
+</div>
